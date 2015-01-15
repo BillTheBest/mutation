@@ -15,6 +15,13 @@
     }
 }(this, function(root, _) {
 
+    // Helper function to evaluate an input as function
+    // or a value
+    var funcOrVal = function(input, context) {
+        var args = slice.call(arguments, 2);
+        return (typeof input == "function") ? input.apply(context, args) : input;
+    };
+
     // Valid operators
     var validMutationOperators = {
         deepExtend: 'deepExtend.',
@@ -107,10 +114,10 @@
                 if(_.isPlainObject(newVal) || _.isFunction(newVal)) {
                     // Deep Extend original object with new Object or run new Function and deep extend with the result
                     if(operator == operators["deepExtend"]) {
-                        return _.deepExtendWith(oldVal, _.funcOrVal(newVal, this));
+                        return _.deepExtendWith(oldVal, funcOrVal(newVal, this));
                         // Extend original object with new Object or run new Function and extend with the result
                     } else if(operator == operators["extend"]) {
-                        return _.extendWith(oldVal, _.funcOrVal(newVal, this));
+                        return _.extendWith(oldVal, funcOrVal(newVal, this));
                     }
                 }
             } else if(_.isArray(oldVal)) {
@@ -235,8 +242,8 @@
          * @returns {*}
          */
         extendWith: function(target, source, settings) {
-            target = _.funcOrVal(target, this);
-            source = _.funcOrVal(source, this);
+            target = funcOrVal(target, this);
+            source = funcOrVal(source, this);
             return _.mutateWith(target, source, _.getExtendMutateSettings(settings));
         },
         deepExtendWith: function(target, source, settings) {
