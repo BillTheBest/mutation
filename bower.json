@@ -15,6 +15,13 @@
     "dependencies": {
         "lodash": "2.4.1"
     },
+    "devDependencies": {
+        "chai": "1.9.1",
+        "mocha": "1.21.3",
+        "sinonjs": "1.10.2",
+        "sinon-chai": "2.5.0",
+        "requirejs": "2.1.14"
+    },
     "ignore": [
         "**/.*",
         "node_modules",
