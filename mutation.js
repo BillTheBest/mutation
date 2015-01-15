@@ -1,12 +1,12 @@
 // ==========================================
-// Copyright 2015 Dataminr
+// Copyright 2014 Dataminr
 // Licensed under The MIT License
 // http://opensource.org/licenses/MIT
 // ==========================================
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
+        define(['lodash'], function(_) {
             root._ = factory(root, _);
             return root._;
         });

@@ -1,11 +1,8 @@
 {
-    "name": "underscore-mutation",
+    "name": "mutation",
     "version": "0.0.1",
-    "authors": [
-        "Armaan Ahluwalia <aahluwalia@dataminr.com>"
-    ],
-    "description": "Adding easy object mutation to underscore",
-    "main": "underscore.mutation.js",
+    "description": "Easy object mutation",
+    "main": "mutation.js",
     "keywords": [
         "mutation",
         "object",
