@@ -15,6 +15,8 @@
     }
 }(this, function(root, _) {
 
+    var slice = Array.prototype.slice;
+    
     // Helper function to evaluate an input as function
     // or a value
     var funcOrVal = function(input, context) {
