@@ -7,11 +7,11 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['lodash'], function(_) {
-            root._ = factory(root, _);
-            return root._;
+            root.Mutation = factory(root, _);
+            return root.Mutation;
         });
     } else {
-        root._ = factory(root, root._);
+        root.Mutation = factory(root, root._);
     }
 }(this, function(root, _) {
 
@@ -66,7 +66,7 @@
         });
     };
 
-    _.mixin({
+    var Mutation = {
         /**
          * Transforms a value with another value given an operator
          * Operators are listed at the top of this file under validMutationOperators
@@ -84,7 +84,7 @@
             //If delete return undefined to signal deletion
             if(operator == operators["delete"])  {
                 return undefined;
-            };
+            }
             //If no operator dont do any transformation and just return old value
             if(!operator) return oldVal;
             if(operator == operators["replace"]){
@@ -97,7 +97,7 @@
                         var context = context || this;
                         var oldResult = oldVal.apply(context, _.toArray(arguments));
                         var newResult = (_.isFunction(newVal)) ? newVal.apply(context, _.toArray(arguments)) : newVal;
-                        return _.deepExtendWith(oldResult, newResult);
+                        return Mutation.deepExtendWith(oldResult, newResult);
                     };
                     // Function  -- Create new function that extends result of original
                 } else if(operator == operators["extendFunction"]) {
@@ -105,21 +105,21 @@
                         var context = context || this;
                         var oldResult = oldVal.apply(context, _.toArray(arguments));
                         var newResult = (_.isFunction(newVal)) ? newVal.apply(context, _.toArray(arguments)) : newVal;
-                        return _.extendWith(oldResult, newResult);
+                        return Mutation.extendWith(oldResult, newResult);
                     };
                     // Call original function with the new value
                 } else if(operator == operators["callWith"]) {
                     return oldVal.call(context, newVal);
                 }
             } else if(_.isPlainObject(oldVal)) {
-                if(operator == operators["recurse"]) return _.mutateWith(oldVal, newVal, _.getRecurseMutateSettings());
+                if(operator == operators["recurse"]) return Mutation.mutateWith(oldVal, newVal, Mutation.getRecurseMutateSettings());
                 if(_.isPlainObject(newVal) || _.isFunction(newVal)) {
                     // Deep Extend original object with new Object or run new Function and deep extend with the result
                     if(operator == operators["deepExtend"]) {
-                        return _.deepExtendWith(oldVal, funcOrVal(newVal, this));
+                        return Mutation.deepExtendWith(oldVal, funcOrVal(newVal, this));
                         // Extend original object with new Object or run new Function and extend with the result
                     } else if(operator == operators["extend"]) {
-                        return _.extendWith(oldVal, funcOrVal(newVal, this));
+                        return Mutation.extendWith(oldVal, funcOrVal(newVal, this));
                     }
                 }
             } else if(_.isArray(oldVal)) {
@@ -162,7 +162,7 @@
                     var operator = getMOperator(mKey);
                     var newVal = source[mKey];
                     var args = getMutationArgs(mKey, operator);
-                    result = _.transformValue(oldVal, newVal, operator, settings, args);
+                    result = Mutation.transformValue(oldVal, newVal, operator, settings, args);
                 });
             };
             return result;
@@ -178,7 +178,7 @@
          */
         mutateKey: function(target, source, key, settings) {
             settings = settings || {};
-            var result = _.transformValueFromSourceKey(target[key], source, key, settings);
+            var result = Mutation.transformValueFromSourceKey(target[key], source, key, settings);
             if(result === undefined) {
                 delete target[key];
             } else {
@@ -246,10 +246,10 @@
         extendWith: function(target, source, settings) {
             target = funcOrVal(target, this);
             source = funcOrVal(source, this);
-            return _.mutateWith(target, source, _.getExtendMutateSettings(settings));
+            return Mutation.mutateWith(target, source, Mutation.getExtendMutateSettings(settings));
         },
         deepExtendWith: function(target, source, settings) {
-            return _.mutateWith(target, source, _.getDeepExtendMutateSettings(settings));
+            return Mutation.mutateWith(target, source, Mutation.getDeepExtendMutateSettings(settings));
         },
         mutateWith: function(target, source, settings) {
             if(typeof source == "undefined") return target;
@@ -259,7 +259,7 @@
             settings = settings || {};
             var getCleanKey = settings.getCleanKey || getCleanMutationKey;
             _.each(_.uniq(_.map(_.keys(source), function(key){ return getCleanKey(key); })), function(key) {
-                _.mutateKey(target, source, key, settings);
+                Mutation.mutateKey(target, source, key, settings);
             }, this);
             return target;
         },
@@ -327,6 +327,7 @@
 
             return child;
         }
-    });
-    return _;
+    };
+
+    return Mutation;
 }));

@@ -63,6 +63,7 @@ module.exports = function(grunt) {
             rest: ["*",
                 "!doc",
                 "!node_modules",
+                "!bower_components",
                 "!demos",
                 "!maindocs"]
         },
