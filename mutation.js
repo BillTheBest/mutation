@@ -1,8 +1,14 @@
-// ==========================================
-// Copyright 2014 Dataminr
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
+/**
+ * @version 0.1
+ *
+ * @fileOverview Provides a declarative API for mutating values.
+ *
+ * Copyright 2015 Dataminr
+ * Licensed under The MIT License
+ * http://opensource.org/licenses/MIT
+
+ *
+ */
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -41,7 +47,9 @@
     var getCleanMutationKey = function(key) {
         if(key == null) return;
         var newKey = key.slice();
-        _.each(_.values(validMutationOperators).sort(function(a,b) { return a < b  }), function(op) {
+        var ops = _.values(validMutationOperators)
+            .sort(function(a,b) { return a < b  });
+        _.each(ops, function(op) {
             if(newKey.indexOf(op) != -1 || op instanceof RegExp) {
                 newKey = newKey.replace(op, '');
             }
@@ -68,12 +76,64 @@
 
     var Mutation = {
         /**
+         * #### extendWith
+         * Is basically _.extend on steroids. Looks at the source object keys for operator
+         * prefixes like 'extend.myVariable' or 'deepExtend.myVariable' or 'callWith.myFunc'
+         * and mutates the values on the target object with the specified operation
+         * If no operator is provided it defaults to setting the source object value
+         * on the target object.
+         * @param target {object} Object to be mutated
+         * @param source {object} Source object for mutation
+         * @param settings {object} (Optional) Settings for mutation
+         * @returns {*}
+         */
+        extendWith: function(target, source, settings) {
+            target = funcOrVal(target, this);
+            source = funcOrVal(source, this);
+            return Mutation.mutateWith(target, source, Mutation.getExtendMutateSettings(settings));
+        },
+        /**
+         * #### deepExtendWith
+         * Same as extendWith. Deep extends a target object given a source object. Supports
+         * all the same operators on keys. Defaults to deepExtend.
+         * @param target {object} Object to be mutated
+         * @param source {object} Source object for mutation
+         * @param settings {object} (Optional) Settings for mutation
+         * @returns {*}
+         */
+        deepExtendWith: function(target, source, settings) {
+            return Mutation.mutateWith(target, source, Mutation.getDeepExtendMutateSettings(settings));
+        },
+        /**
+         * #### mutateWith
+         * Largely internal function that accepts a target and source object
+         * for mutation as well as settings for mutation
+         * @param target {object} Object to be mutated
+         * @param source {object} Source object for mutation
+         * @param settings (Optional) {object} Settings for mutation
+         * @returns {*}
+         */
+        mutateWith: function(target, source, settings) {
+            if(typeof source == "undefined") return target;
+            if(!_.isPlainObject(target) || !_.isPlainObject(source)) {
+                return console.error('Invalid format for mutate');
+            }
+            settings = settings || {};
+            var getCleanKey = settings.getCleanKey || getCleanMutationKey;
+            _.each(_.uniq(_.map(_.keys(source), function(key){ return getCleanKey(key); })), function(key) {
+                Mutation.mutateKey(target, source, key, settings);
+            }, this);
+            return target;
+        },
+        /**
+         * #### transformValue
          * Transforms a value with another value given an operator
          * Operators are listed at the top of this file under validMutationOperators
-         * @param oldVal
-         * @param newVal
-         * @param operator
-         * @param settings
+         * Returns undefined in case the operator was 'delete.'
+         * @param oldVal {*} value to transform
+         * @param newVal {*} value to transform with
+         * @param operator {string|regexp} mutation operator
+         * @param settings (Optional) {object} settings for mutation
          * @returns {*}
          */
         transformValue: function(oldVal, newVal, operator, settings, args) {
@@ -139,6 +199,7 @@
             return oldVal;
         },
         /**
+         * #### transformValueFromSourceKey
          * Transforms a value by parsing all valid operators associated with a given key on
          * a source Object.  Example the value could be an { foo: "bar" } and the source object
          * could contain a key thats called 'extend.foo' with a value. The value would be returned
@@ -168,12 +229,13 @@
             return result;
         },
         /**
+         * #### mutateKey
          * Mutate the value on a target object from all the valid keys on the
          * source object.
-         * @param target
-         * @param source
-         * @param key
-         * @param settings
+         * @param target {object} target object to mutate
+         * @param source {object} source object to mutate from
+         * @param key {string} key to use for mutation
+         * @param settings {object} (Optional) mutation settings
          * @returns {*}
          */
         mutateKey: function(target, source, key, settings) {
@@ -183,7 +245,7 @@
                 delete target[key];
             } else {
                 target[key] = result;
-            };
+            }
             return target;
         },
         getExtendMutateSettings: function(settings) {
@@ -231,37 +293,6 @@
                     return (getMOperator(key) || validMutationOperators["recurse"]);
                 }
             });
-        },
-        /**
-         * Is basically _.extend on steroids. Looks at the source object keys for operator
-         * prefixes like 'extend.myVariable' or 'deepExtend.myVariable' or 'callWith.myFunc'
-         * and mutates the values on the target object with the specified operation
-         * If no operator is provided it defaults to setting the source object value
-         * on the target object.
-         * @param target
-         * @param source
-         * @param settings
-         * @returns {*}
-         */
-        extendWith: function(target, source, settings) {
-            target = funcOrVal(target, this);
-            source = funcOrVal(source, this);
-            return Mutation.mutateWith(target, source, Mutation.getExtendMutateSettings(settings));
-        },
-        deepExtendWith: function(target, source, settings) {
-            return Mutation.mutateWith(target, source, Mutation.getDeepExtendMutateSettings(settings));
-        },
-        mutateWith: function(target, source, settings) {
-            if(typeof source == "undefined") return target;
-            if(!_.isPlainObject(target) || !_.isPlainObject(source)) {
-                return console.error('Invalid format for mutate');
-            };
-            settings = settings || {};
-            var getCleanKey = settings.getCleanKey || getCleanMutationKey;
-            _.each(_.uniq(_.map(_.keys(source), function(key){ return getCleanKey(key); })), function(key) {
-                Mutation.mutateKey(target, source, key, settings);
-            }, this);
-            return target;
         },
         deepExtendBase: function(base, protoProps, staticProps) {
             var parent = base;

@@ -1,4 +1,4 @@
-define(['chai', 'mutation'], function(chai) {
+define(['chai', 'mutation'], function(chai, Mutation) {
     var expect = chai.expect;
     chai.should();
 
@@ -57,34 +57,34 @@ define(['chai', 'mutation'], function(chai) {
             'push.g': 3
         };
         it('should delete key', function() {
-            _.mutateKey(target, source, 'a');
+            Mutation.mutateKey(target, source, 'a');
             expect(target.foo).to.be.undefined;
         });
 
         it('should extend key object', function() {
-            _.mutateKey(target, source, 'b');
+            Mutation.mutateKey(target, source, 'b');
             expect(target.b.innerProp2).to.equal(2);
         });
 
         it('should extend key function to object', function() {
-            _.mutateKey(target, source, 'd');
+            Mutation.mutateKey(target, source, 'd');
             expect(target.d().innerProp1).to.equal(1);
             expect(target.d().innerProp2).to.equal(2);
         });
 
         it('should extend key function to function', function() {
-            _.mutateKey(target, source, 'e');
+            Mutation.mutateKey(target, source, 'e');
             expect(target.e().innerProp1).to.equal(1);
             expect(target.e().innerProp2).to.equal(3);
         });
 
         it('should extend key object to function', function() {
-            _.mutateKey(target, source, 'f');
+            Mutation.mutateKey(target, source, 'f');
             expect(target.f.innerProp2).to.equal(2);
         });
 
         it('should deep extend key', function() {
-            _.mutateKey(target, source, 'c');
+            Mutation.mutateKey(target, source, 'c');
             expect(target.c.innerProp1.mostInnerProp1).to.equal(3);
             expect(target.c.innerProp1.mostInnerProp2).to.equal(2);
         });
@@ -115,7 +115,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             it('should delete key', function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
                 expect(target.a).to.be.undefined;
                 expect(target.b).to.be.undefined;
                 expect(target.c).to.be.undefined;
@@ -175,7 +175,7 @@ define(['chai', 'mutation'], function(chai) {
                 u: true
             };
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('should override number > number', function() {
@@ -257,7 +257,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('extend. should extend object > object', function() {
@@ -302,7 +302,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('deepExtend. should deep extend object > object', function() {
@@ -343,7 +343,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('extendFunc. should extend function result from another function', function() {
@@ -393,7 +393,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('deepExtendFunc. should extend function result from another function', function() {
@@ -422,7 +422,7 @@ define(['chai', 'mutation'], function(chai) {
             };
 
             beforeEach(function() {
-                _.extendWith(target, source);
+                Mutation.extendWith(target, source);
             });
 
             it('call. should call original function with new value', function() {
@@ -437,7 +437,7 @@ define(['chai', 'mutation'], function(chai) {
             var source = {
                 'push.a': 3
             };
-            _.extendWith(target, source);
+            Mutation.extendWith(target, source);
             it('should push to array', function() {
                 expect(target.a[0]).to.equal(1);
                 expect(target.a[1]).to.equal(2);
@@ -474,7 +474,7 @@ define(['chai', 'mutation'], function(chai) {
         };
 
         it('should do the right thing', function() {
-            _.deepExtendWith(target, source);
+            Mutation.deepExtendWith(target, source);
 
             expect(target.a).to.be.undefined;
             expect(target.b).to.equal(3);

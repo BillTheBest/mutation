@@ -9,8 +9,20 @@ h1,h2,h3,h4,h5,h6 {
 body {
     font-family: "open sans", "Helvetica";
     font-weight: 100;
-    font-size: 16px;
-    line-height: 1.6em;
+    font-size: 15px;
+    line-height: 1.7em;
+}
+a {
+    -webkit-transition: color 0.3s ease-out;
+    -moz-transition: color 0.3s ease-out;
+    -o-transition: color 0.3s ease-out;
+    transition: color 0.3s ease-out;
+}
+a:visited {
+    color: #708188;
+}
+a:hover {
+    color: #00ABF0;
 }
 .project-header {
     float: left;
@@ -28,11 +40,26 @@ body {
     margin-bottom: 0.6em;
     padding-bottom: 0.3em;
 }
+h2 {
+    font-size: 1.5em;
+    line-height: 1.7em;
+}
+h3 {
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
+h4 {
+    font-size: 1.1em;
+    line-height: 1.1em;
+}
 body .highlight {
     background: transparent;
 }
 .code.highlight,
 .code .highlight {
+    background: #3B484D;
+}
+.demo-frame {
     background: #3B484D;
 }
 .code pre {
@@ -60,15 +87,6 @@ body .highlight {
     margin-right: 100px;
     clear: left;
     padding: 5px 0;
-}
-.dox .details {
-    background: transparent;
-    border: none;
-    padding: 0;
-    word-break: break-word;
-}
-.dox .dox_tag_detail {
-    margin:0;
 }
 td.docs {
     padding: 0 20px 1px;
@@ -105,18 +123,52 @@ td.docs {
     margin: 20px 0 15px 0;
 }
 .docs.markdown th {
+
     text-align: left;
-    padding: 0.7em 0;
     background: #FFF;
     padding: 12px;
-    color: #192D35;
-    /* border-bottom: 3px solid #00ABF0; */
+    font-size: 0.7em;
+    color: #737373;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #ABABAB;
+    line-height: 1.5em;
+    margin: 1em 0;
     font-weight: 600;
+    margin-right: 10px;
 }
 .docs.markdown table td {
     padding: 10px 25px;
     padding-left: 10px;
     border-bottom: 1px solid #E7E7E7;
+}
+.docs h1,h2,h3,h4,h5,h6 {
+    color: #3B484D;
+}
+.dox .details {
+    background: transparent;
+    border: none;
+    padding: 0;
+    word-break: break-word;
+}
+.dox .dox_tag_detail {
+    margin:0;
+    font-size: 13px;
+}
+.dox .dox_tag_name {
+    color: #565656;
+}
+.dox .dox_tag_title {
+    font-weight: bold;
+    font-size: 0.7em;
+    color: #737373;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #ABABAB;
+    line-height: 1.5em;
+    display: inline-block;
+    margin: 1em 0;
+    font-weight: 600;
 }
 
 /*
@@ -132,9 +184,9 @@ body .highlight .c { color: #808080 } /* Comment */
 body .highlight .err { color: #F00000; background-color: #F0A0A0 } /* Error */
 body .highlight .k { color: #DAC987; font-weight: bold } /* Keyword */
 body .highlight .o { color: #FFFFFF } /* Operator */
-body .highlight .cm { color: #808080 } /* Comment.Multiline */
+body .highlight .cm { color: #ADADAD; } /* Comment.Multiline */
 body .highlight .cp { color: #507090 } /* Comment.Preproc */
-body .highlight .c1 { color: #808080 } /* Comment.Single */
+body .highlight .c1 { color: #ADADAD; } /* Comment.Single */
 body .highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
 body .highlight .gd { color: #A00000 } /* Generic.Deleted */
 body .highlight .ge { font-style: italic } /* Generic.Emph */
@@ -155,7 +207,7 @@ body .highlight .kt { color: #72A1BA; font-weight: bold } /* Keyword.Type */
 body .highlight .m { color: #4FE4FF; font-weight: bold } /* Literal.Number */
 body .highlight .s { background-color: #B1CF9D } /* Literal.String */
 body .highlight .na { color: #0000C0 } /* Name.Attribute */
-body .highlight .nb { color: #007020 } /* Name.Builtin */
+body .highlight .nb { color: #A6BDCA } /* Name.Builtin */
 body .highlight .nc { color: #B00060; font-weight: bold } /* Name.Class */
 body .highlight .no { color: #005bb9; font-weight: bold } /* Name.Constant */
 body .highlight .nd { color: #505050; font-weight: bold } /* Name.Decorator */
@@ -175,7 +227,7 @@ body .highlight .mo { color: #4FE4FF; font-weight: bold } /* Literal.Number.Oct 
 body .highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
 body .highlight .sc { color: #0040D0 } /* Literal.String.Char */
 body .highlight .sd { color: #D04020 } /* Literal.String.Doc */
-body .highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+body .highlight .s2 { color: #B1CF9D; } /* Literal.String.Double */
 body .highlight .se { color: #606060; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
 body .highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
 body .highlight .si { background-color: #e0e0e0 } /* Literal.String.Interpol */

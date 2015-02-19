@@ -7,7 +7,7 @@ Mutation provides a declarative api for mutating values.
 
 ## Source ##
 
-Read the annotated source <a href="doc/mutation.js.html" target="_blank">here</a>
+Read the annotated source <a href="mutation.js.html" target="_blank">here</a>
 
 <div class="clear"></div>
 <div class="spacer"></div>
@@ -20,23 +20,64 @@ Here's a list of the available advice API methods that are added onto lodash
 | ------------ | ------------------------------------------------------------------------------------------- |
 | extendWith    | Adds on the supplied method to be called before the original method(s) run |
 | deepExtendWith       |  Adds on the supplied method to be called after the original method(s) have run |
-| clobber   |  Overwrites the original properties of an object |
-| around    |  Adds on the supplied method instead of the super method, but passes a reference to the original method as the first argument followed by the arguments the method was called with |
-| addToObj | Extends the keys of an object with the keys of the provided object |
-| setDefaults | Adds properties (methods, objects, etc) to the constructor if they don't already exist |
-| mixin | Pass an array of mixins that should be mixed in to the target object |
+| mutateWith   | Mutates a source object given a target object and some mutation settings |
 
+The following is a list of all the valid mutation operators:
+
+| Operator      |  Behavior  |
+| ------------ | ------------------------------------------------------------------------------------------- |
+| extend    | Extends an object given another one |
+| deepExtend       |  Extends an object given another to an infinite depth |
+| delete   | Deletes the given value |
+| push   | Pushes into an array |
+| insertAt   | Inserts into an array at the given index |
+| callWith   | Calls a function with the given source value |
+| extendFunction   | Calls the source function after the target function and returns the return value of the target extended with the return value of the source function |
+| deepExtendFunction   | Same as extendFunction except deep extends the return value |
 
 ## Usage ##
+
+There are a number of useful declaretive mutations provided by the Mutation library.
+
 <div class="left">
-There are a number of ways of adding advice to an object. But first, one must add the advice API to a given object class.
+	Delete a value
 </div>
 
 ```javascript
-Advice.addAdvice(recipientOfAdvice);
+var foo = {
+	a: 1,
+	b: 2
+};
+var bar = {
+	'delete.b': true
+}
+Mutation.extendWith(foo, bar);
+// console.log(foo.b) is undefined
 ```
-
-
-## Examples ##
-<a href="doc/examples/example1.md.html" target="_blank">Simple Example With an 'After'</a>
-<a href="doc/examples/example2.md.html" target="_blank">Example with a Backbone application</a>
+<div class="left">
+	Extend or replace a value
+</div>
+```javascript
+var foo = {
+	a: {
+		one: 1,
+		two: 2
+	},
+	b: {
+		three: 3,
+		four: 4
+	}
+};
+var bar = {
+	'extend.a': {
+		three: 3
+	},
+	'replace.b': {
+		six: 6
+	}
+};
+Mutation.extendWith(a, b);
+// console.log(foo.a.three) is 3
+// console.log(foo.b.six) is 6
+// console.log(foo.b.three) is undefined
+```
