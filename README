@@ -1,3 +1,5 @@
-# Underscore.Mutation #
+# Mutation #
 
-Object mutation plugin for lodash.
+Allows for declarative mutation of JavaScript objects. Is extremely useful for mutating things like default values and configuration objects.
+Works by recursing over a target object and applying any mutation directives it finds in the source object.
+

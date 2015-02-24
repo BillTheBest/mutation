@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>example1.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "examples/example1.md", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <link rel="stylesheet" href="../docs-style.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<h1 id="basic-example">Basic Example</h1>
+<h2 id="demo">Demo</h2>
+<div class="clear"></div>
+<div class="left">
+    In the example we see that we can easily override the properties of the instances by passing in an options object.
+</div>
+<iframe src="../resources/demos/demo1.html" class="demo-frame"></iframe>
+
+<div class="clear"></div>
+
+<h2 id="code">Code</h2>
+<p>Let&#39;s take an example of where this might be useful. Suppose we have some instance where we are defining some default configuration.
+However, we would like the user to be able to change the behaviour of the instance be passing in some options. Mutation allows us
+to setup a format for such configuration without explicitly needing to define such override behaviour.</p>
+<div class="left">
+Define our class
+</div>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">Foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Set the configuration of the class by</span>
+    <span class="c1">// mutating some defaults with the options passed in</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">configuration</span> <span class="o">=</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">extendWith</span><span class="p">({</span>
+        <span class="nx">hands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">],</span>
+        <span class="nx">evil</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">children</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;dave&#39;</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="s1">&#39;taylor&#39;</span><span class="o">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="c1">// Add a get method to retrieve a property</span>
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">property</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">configuration</span><span class="p">[</span><span class="nx">property</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<div class="clear"></div>
+<div class="left"></div>
+
+
+<div class="highlight"><pre><code><span class="c1">// Create our instances</span>
+<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">({</span>
+    <span class="s1">&#39;delete.evil&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s1">&#39;insertAt[0].hands&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;extend.children&#39;</span><span class="o">:</span> <span class="p">{</span>
+         <span class="s1">&#39;nate&#39;</span><span class="o">:</span> <span class="p">{},</span>
+         <span class="s1">&#39;pate&#39;</span><span class="o">:</span> <span class="p">{},</span>
+         <span class="s1">&#39;chris&#39;</span><span class="o">:</span> <span class="p">{}</span>
+     <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;evil&#39;</span><span class="p">));</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;evil&#39;</span><span class="p">));</span> <span class="c1">// undefined</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;hands&#39;</span><span class="p">));</span> <span class="c1">// [&#39;left&#39;,&#39;right&#39;]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;hands&#39;</span><span class="p">));</span> <span class="c1">// [&#39;center&#39;,&#39;left&#39;,&#39;right&#39;]</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">));</span> <span class="c1">// dave and taylor</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">));</span> <span class="c1">// dave, taylor, nate, pat and chris</span>
+</code></pre></div>
+
+
+</div>
+  </div>
+</body>
+</html>

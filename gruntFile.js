@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     var port = '9000';
     var connect = require('./node_modules/grunt-contrib-connect/tasks/connect');
     // File paths for the docs pages. Generally should be kept like this
-    var docFilePaths = ['index.md', 'docs/*'];
+    var docFilePaths = ['index.md', 'examples'];
 
 
     /*** File paths for your source files **/

@@ -16,6 +16,9 @@
             root.Mutation = factory(root, _);
             return root.Mutation;
         });
+    } else if (typeof exports !== 'undefined') {
+        var _ = require('lodash');
+        module.exports = factory(root, _);
     } else {
         root.Mutation = factory(root, root._);
     }
@@ -56,6 +59,7 @@
         }, this);
         return newKey;
     };
+    // Get a valid mutation operator given a key
     var getMutationOperator = function(key) {
         if(key == null) return;
         return _.find(_.values(validMutationOperators), function(op) {
@@ -63,10 +67,12 @@
             if(op instanceof RegExp) return op.test(key);
         });
     };
+    // Get the arguments to the mutation function given a regex operator
     var getMutationArgs = function(key, op) {
         if(!(op instanceof RegExp)) return [];
         return key.match(op).slice(1);
     };
+    // Get all the keys from an object with a mutation operator on them
     var getMutationKeys = function(obj, cleanKey) {
         if(!obj) return [];
         return _.filter(_.keys(obj), function(key) {
@@ -225,7 +231,7 @@
                     var args = getMutationArgs(mKey, operator);
                     result = Mutation.transformValue(oldVal, newVal, operator, settings, args);
                 });
-            };
+            }
             return result;
         },
         /**

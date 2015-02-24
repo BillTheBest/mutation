@@ -1,8 +1,8 @@
 <div class="project-header">
 <div class="project-name">Mutation</div>
 <div class="intro">
-<i>Plugin for <a href="https://lodash.com/" target="_blank">lodash</a> .</i>
-Mutation provides a declarative api for mutating values.
+Allows for declarative mutation of JavaScript objects. Is extremely useful for mutating things like default values and configuration objects.
+Works by recursing over a target object and applying any mutation directives it finds in the source object.
 </div></div>
 
 ## Source ##
@@ -14,12 +14,12 @@ Read the annotated source <a href="mutation.js.html" target="_blank">here</a>
 
 ## API ##
 
-Here's a list of the available advice API methods that are added onto lodash
+Here's a list of the available advice API methods:
 
 | Type      |  Behavior  |
 | ------------ | ------------------------------------------------------------------------------------------- |
-| extendWith    | Adds on the supplied method to be called before the original method(s) run |
-| deepExtendWith       |  Adds on the supplied method to be called after the original method(s) have run |
+| extendWith    | Mutates a target object using a source object. Keys with no mutation operators are simply replaced. |
+| deepExtendWith       |  Mutates a target object using a source object. Keys with no mutation operators are recursively mutated. |
 | mutateWith   | Mutates a source object given a target object and some mutation settings |
 
 The following is a list of all the valid mutation operators:
@@ -37,10 +37,8 @@ The following is a list of all the valid mutation operators:
 
 ## Usage ##
 
-There are a number of useful declaretive mutations provided by the Mutation library.
-
 <div class="left">
-	Delete a value
+	The simplest possible example might be a delete operation on a target object.
 </div>
 
 ```javascript
@@ -54,30 +52,9 @@ var bar = {
 Mutation.extendWith(foo, bar);
 // console.log(foo.b) is undefined
 ```
-<div class="left">
-	Extend or replace a value
-</div>
-```javascript
-var foo = {
-	a: {
-		one: 1,
-		two: 2
-	},
-	b: {
-		three: 3,
-		four: 4
-	}
-};
-var bar = {
-	'extend.a': {
-		three: 3
-	},
-	'replace.b': {
-		six: 6
-	}
-};
-Mutation.extendWith(a, b);
-// console.log(foo.a.three) is 3
-// console.log(foo.b.six) is 6
-// console.log(foo.b.three) is undefined
-```
+
+Let's take an example of where this might be useful. Suppose we have some instance where we are defining some default configuration.
+However, we would like the user to be able to change the behaviour of the instance be passing in some options. Mutation allows us
+to setup a format for such configuration without explicitly needing to define such override behaviour.
+
+Check out the example for this <a href="examples/example1.md.html">here</a>

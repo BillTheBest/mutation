@@ -57,8 +57,8 @@ a:hover {
     border-bottom: 2px solid #00ABF0;
     display: inline-block;
     line-height: 1.1em;
+    margin-bottom: 0.6em;
     padding-bottom: 0.3em;
-    margin: 0.6em 0;
 }
 h2 {
     font-size: 1.5em;
@@ -79,9 +79,8 @@ body .highlight {
 .code .highlight {
     background: #3B484D;
 }
-.demo-frame {
+#demo-frame {
     display:inline-block;
-    height: 400px;
     width: calc(100% - 35% - 110px);
 }
 .demo {
