@@ -1,15 +1,15 @@
-## Mutation ##
+# Mutation #
 
 Allows for declarative mutation of JavaScript objects. Is extremely useful for mutating things like default values and configuration objects.
 Works by recursing over a target object and applying any mutation directives it finds in the source object.
 
-# Website #
+## Website ##
 
 Visit the [website](http://dataminr.github.io/mutation) for usage, examples and annotated source code.
 
-# Development #
+## Development ##
 
-## Tests and Coverage ##
+### Tests and Coverage ###
 
 To generate a test and coverage report:
 
@@ -17,7 +17,7 @@ To generate a test and coverage report:
 grunt
 ```
 
-## Documentation ##
+### Documentation ###
 
 To generate documentation from source code.
 
