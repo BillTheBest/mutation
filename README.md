@@ -5,7 +5,7 @@ Works by recursing over a target object and applying any mutation directives it 
 
 # Website #
 
-Visit the [website](http://dataminr.github.io/advice) for usage, examples and annotated source code.
+Visit the [website](http://dataminr.github.io/mutation) for usage, examples and annotated source code.
 
 # Development #
 
