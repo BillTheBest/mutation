@@ -94,8 +94,8 @@
          * @returns {*}
          */
         extendWith: function(target, source, settings) {
-            target = funcOrVal(target, this);
-            source = funcOrVal(source, this);
+            target = funcOrVal(target, this, target, source);
+            source = funcOrVal(source, this, target, source);
             return Mutation.mutateWith(target, source, Mutation.getExtendMutateSettings(settings));
         },
         /**
