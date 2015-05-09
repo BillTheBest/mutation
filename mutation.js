@@ -182,10 +182,10 @@
                 if(_.isPlainObject(newVal) || _.isFunction(newVal)) {
                     // Deep Extend original object with new Object or run new Function and deep extend with the result
                     if(operator == operators["deepExtend"]) {
-                        return Mutation.deepExtendWith(oldVal, funcOrVal(newVal, context));
+                        return Mutation.deepExtendWith(oldVal, funcOrVal(newVal, context, oldVal));
                         // Extend original object with new Object or run new Function and extend with the result
                     } else if(operator == operators["extend"]) {
-                        return Mutation.extendWith(oldVal, funcOrVal(newVal, context));
+                        return Mutation.extendWith(oldVal, funcOrVal(newVal, context, oldVal));
                     }
                 }
             } else if(_.isArray(oldVal)) {
