@@ -20,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@git.dataminr.com:frontend-team/underscore-mutation.git"
+        "url": "https://github.com/dataminr/mutation.git"
     },
     "devDependencies": {
         "bower": "1.3.8",
