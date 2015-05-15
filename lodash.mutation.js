@@ -6,10 +6,14 @@
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['lodash','mutation'], function(_, Mutation) {
+        define(['lodash','mutation.js'], function(_, Mutation) {
             root._ = factory(root, _, Mutation);
             return root._;
         });
+    } else if (typeof exports !== 'undefined') {
+        var _ = require('lodash');
+        var Mutation = require('mutation.js');
+        module.exports = factory(root, _, Mutation);
     } else {
         root._ = factory(root, root._, root.Mutation);
     }
