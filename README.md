@@ -9,7 +9,7 @@ Visit the [website](http://dataminr.github.io/mutation) for usage, examples and 
 
 ## Development ##
 
-### Tests and Coverage ###
+### Tests and Coverage ##
 
 To generate a test and coverage report for mutation.js:
 
