@@ -1,5 +1,5 @@
 /**
- * @version 0.0.2
+ * @version 0.0.5
  *
  * @fileOverview Provides a declarative API for mutating values.
  *

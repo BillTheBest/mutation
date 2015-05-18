@@ -11,11 +11,18 @@ Visit the [website](http://dataminr.github.io/mutation) for usage, examples and 
 
 ### Tests and Coverage ###
 
-To generate a test and coverage report:
+To generate a test and coverage report for mutation.js:
 
 ```javascript
 grunt
 ```
+
+To test lodash.mutation.js
+
+```javascript
+grunt lodash
+```
+
 
 ### Documentation ###
 

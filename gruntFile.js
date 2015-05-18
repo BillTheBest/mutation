@@ -15,6 +15,9 @@ module.exports = function(grunt) {
         karma: {
             test: {
                 configFile: 'karma.conf.js'
+            },
+            "test-lodash": {
+                configFile: 'lodash-test-conf.js'
             }
         },
 
@@ -102,6 +105,15 @@ module.exports = function(grunt) {
         // Open before connect because connect uses keepalive at the moment
         // so anything after connect wouldn't run
         'karma:test',
+        'open',
+        'connect'
+    ]);
+
+    // Creates the `server` task
+    grunt.registerTask('lodash',[
+        // Open before connect because connect uses keepalive at the moment
+        // so anything after connect wouldn't run
+        'karma:test-lodash',
         'open',
         'connect'
     ]);

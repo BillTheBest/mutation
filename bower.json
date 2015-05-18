@@ -1,5 +1,5 @@
 {
-    "name": "mutation.js",
+    "name": "mutation-js",
     "version": "0.0.3",
     "description": "Easy object mutation",
     "main": "mutation.js",

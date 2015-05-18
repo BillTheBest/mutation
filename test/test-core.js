@@ -1,7 +1,6 @@
-define(['chai', 'mutation'], function(chai, Mutation) {
+define(['chai'], function(chai) {
     var expect = chai.expect;
     chai.should();
-
     describe('mutateKey', function() {
         var target = {
             a: "foo",

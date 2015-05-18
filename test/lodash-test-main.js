@@ -9,7 +9,7 @@
  */
 
 // Define an array of "deps" for requirejs to have in karma environment only
-var deps = ["mutation-js"];
+var deps = ["lodash.mutation"];
 // Define a regex to match which of our files to load as deps in karma
 // This is a match done against all the files karma has loaded into the
 // base directory
@@ -31,14 +31,13 @@ if(window.__karma__) {
 function startTests() {
     // Start tests if karma
     if(window.__karma__) {
-        console.log(deps);
         window.__karma__.start();
-    // Start tests if browser by requiring and
-    // setting up mocha and then requiring the tests
-    // and calling run
+        // Start tests if browser by requiring and
+        // setting up mocha and then requiring the tests
+        // and calling run
     } else {
         var allTestFiles = [
-          'test/test-core'
+            'test/test-core'
         ];
         require(['mocha'], function(mocha) {
             mocha.setup('bdd');
@@ -67,6 +66,9 @@ require.config({
     shim: {
         'underscore': {
             exports: '_'
+        },
+        "test-core": {
+            deps: ["mutation-js"]
         },
         mocha: {
             exports: "mocha",

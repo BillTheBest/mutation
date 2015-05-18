@@ -14,12 +14,13 @@ module.exports = function(config) {
 
             // Files
             {pattern: 'mutation.js', included:false },
+            {pattern: 'lodash.mutation.js', included:false },
 
             //Tests
             {pattern: 'test/test-core.js', included: false },
 
             //Runner
-            {pattern: 'test/test-main.js', included: true }
+            {pattern: 'test/lodash-test-main.js', included: true }
         ],
 
         // list of files to exclude
