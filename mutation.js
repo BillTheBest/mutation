@@ -121,7 +121,7 @@
          */
         mutateWith: function(target, source, settings) {
             if(typeof source == "undefined") return target;
-            if(!_.isPlainObject(target) || !_.isPlainObject(source)) {
+            if(!settings.force && (!_.isPlainObject(target) || !_.isPlainObject(source))) {
                 return console.error('Invalid format for mutate');
             }
             settings = settings || {};
@@ -324,7 +324,9 @@
 
             // Add prototype properties (instance properties) to the subclass,
             // if supplied.
-            if (protoProps) _.merge(child.prototype, protoProps);
+            if (protoProps) Mutation.deepExtendWith(child.prototype, protoProps, _.extend(Mutation.getDeepExtendMutateSettings({
+                force: true
+            })));
 
             // Set a convenience property in case the parent's prototype is needed
             // later.

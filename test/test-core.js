@@ -1,5 +1,6 @@
 define(['chai'], function(chai) {
     var expect = chai.expect;
+    var assert = chai.assert;
     chai.should();
     describe('mutateKey', function() {
         var target = {
@@ -481,5 +482,114 @@ define(['chai'], function(chai) {
             expect(target.c.inner1.baz).to.equal("hi");
             expect(target.c.inner1.inner2.foo).to.be.undefined;
         });
+    });
+
+    describe('should extend a base', function() {
+        var a = function() {
+        };
+        a.prototype = {
+            prop1: "some value",
+            prop2: "some value",
+            prop3: "some value",
+            prop4: "some value",
+            prop5: "some value",
+            prop6: "some value",
+        };
+        var arrVal = [1,2,3];
+        var boolVal = true;
+        var objVal = {
+            foo: "bar"
+        };
+        var dateVal = new Date();
+        var extendedBase = Mutation.extendBase(a, {
+            prop1: 1,
+            prop2: "foo",
+            prop3: arrVal,
+            prop4: dateVal,
+            prop5: boolVal,
+            prop6: objVal,
+            mergeProps: {
+                foo: {
+                    prop1: 1,
+                    prop2: "foo",
+                    prop3: arrVal,
+                    prop4: dateVal,
+                    prop5: boolVal,
+                    prop6: objVal
+                }
+            }
+        });
+        var inst = new extendedBase();
+        it('should extend a base', function() {
+            assert.equal(inst.prop1, 1);
+            assert.equal(inst.prop2, "foo");
+            assert.equal(inst.prop3, arrVal);
+            assert.equal(inst.prop4, dateVal);
+            assert.equal(inst.prop5, boolVal);
+            assert.equal(inst.prop6, objVal);
+        })
+    });
+
+    describe('deepExtendBase', function() {
+        var a = function() {
+            this.prop1 = 1;
+        };
+        a.prototype = {
+            prop1: "some value",
+            prop2: "some value",
+            prop3: "some value",
+            prop4: "some value",
+            prop5: "some value",
+            prop6: "some value",
+            mergeProps: {
+                foo: {
+                    prop1: "some value",
+                    prop2: "some value",
+                    prop3: "some value",
+                    prop4: "some value",
+                    prop5: "some value",
+                    prop6: "some value"
+                }
+            }
+        };
+        var arrVal = [1,2,3];
+        var boolVal = true;
+        var objVal = {
+            foo: "bar"
+        };
+        var dateVal = new Date();
+        var extendedBase = Mutation.deepExtendBase(a, {
+            prop1: 1,
+            prop2: "foo",
+            prop3: arrVal,
+            prop4: dateVal,
+            prop5: boolVal,
+            prop6: objVal,
+            mergeProps: {
+                foo: {
+                    prop1: 1,
+                    prop2: "foo",
+                    prop3: arrVal,
+                    prop4: dateVal,
+                    prop5: boolVal,
+                    prop6: objVal
+                }
+            }
+        });
+        var inst = new extendedBase();
+        it('should deep extend a base', function() {
+            assert.equal(inst.prop1, 1);
+            assert.equal(inst.prop2, "foo");
+            assert.equal(inst.prop3, arrVal);
+            assert.equal(inst.prop4, dateVal);
+            assert.equal(inst.prop5, boolVal);
+            assert.equal(inst.prop6, objVal);
+            assert.equal(inst.mergeProps.foo.prop1, 1);
+            assert.equal(inst.mergeProps.foo.prop2, "foo");
+            assert.equal(inst.mergeProps.foo.prop3, arrVal);
+            assert.equal(inst.mergeProps.foo.prop4, dateVal);
+            assert.equal(inst.mergeProps.foo.prop5, boolVal);
+            assert.equal(inst.mergeProps.foo.prop6, objVal);
+        })
     });
 });
