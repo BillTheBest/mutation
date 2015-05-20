@@ -6,7 +6,7 @@
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['lodash','mutation-js'], function(_, Mutation) {
+        define(['lodash','mutation-js/mutation'], function(_, Mutation) {
             root._ = factory(root, _, Mutation);
             return root._;
         });

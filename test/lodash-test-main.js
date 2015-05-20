@@ -59,7 +59,7 @@ require.config({
         sinon: 'bower_components/sinonjs/sinon',
         "lodash": 'bower_components/lodash/dist/lodash',
         "underscore": 'bower_components/lodash/dist/lodash',
-        "mutation-js": 'mutation',
+        "mutation-js": '.',
         "test-core": "test/test-core",
         "lodash.mutation": "lodash.mutation"
     },
@@ -68,7 +68,7 @@ require.config({
             exports: '_'
         },
         "test-core": {
-            deps: ["mutation-js"]
+            deps: ["mutation-js/mutation"]
         },
         mocha: {
             exports: "mocha",
