@@ -6,12 +6,12 @@
 
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['lodash','mutation-js'], function(_, Mutation) {
+        define(['underscore','mutation-js'], function(_, Mutation) {
             root._ = factory(root, _, Mutation);
             return root._;
         });
     } else if (typeof exports !== 'undefined') {
-        var _ = require('lodash');
+        var _ = require('underscore');
         var Mutation = require('mutation-js');
         module.exports = factory(root, _, Mutation);
     } else {
