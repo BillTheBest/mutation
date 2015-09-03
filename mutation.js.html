@@ -44,7 +44,7 @@
   <div class="details">
     <div class="dox_tag_title">version</div>
     <div class="dox_tag_detail">
-      <span>0.1
+      <span>0.0.5
 </span>
     </div>
     <div class="dox_tag_title">fileOverview</div>
@@ -117,6 +117,7 @@ or a value</p>
         <span class="nx">extendFunction</span><span class="o">:</span> <span class="s1">&#39;extendFunc.&#39;</span><span class="p">,</span>
         <span class="nx">deepExtendFunction</span><span class="o">:</span> <span class="s1">&#39;deepExtendFunc.&#39;</span><span class="p">,</span>
         <span class="nx">push</span><span class="o">:</span> <span class="s1">&#39;push.&#39;</span><span class="p">,</span>
+        <span class="nx">concat</span><span class="o">:</span> <span class="s1">&#39;concat.&#39;</span><span class="p">,</span>
         <span class="nx">insertAt</span><span class="o">:</span> <span class="sr">/insertAt(.*)\./i</span>
     <span class="p">};</span>
 
@@ -253,8 +254,8 @@ on the target object.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">extendWith</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">target</span> <span class="o">=</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-            <span class="nx">source</span> <span class="o">=</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+            <span class="nx">target</span> <span class="o">=</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
+            <span class="nx">source</span> <span class="o">=</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
             <span class="k">return</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">mutateWith</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">getExtendMutateSettings</span><span class="p">(</span><span class="nx">settings</span><span class="p">));</span>
         <span class="p">},</span>
 
@@ -356,7 +357,7 @@ for mutation as well as settings for mutation</p>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">mutateWith</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">source</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">source</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">settings</span><span class="p">.</span><span class="nx">force</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">source</span><span class="p">)))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Invalid format for mutate&#39;</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="nx">settings</span> <span class="o">=</span> <span class="nx">settings</span> <span class="o">||</span> <span class="p">{};</span>
@@ -531,7 +532,7 @@ Returns undefined in case the operator was &#39;delete.&#39;</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
                     <span class="k">if</span><span class="p">(</span><span class="nx">operator</span> <span class="o">==</span> <span class="nx">operators</span><span class="p">[</span><span class="s2">&quot;deepExtend&quot;</span><span class="p">])</span> <span class="p">{</span>
-                        <span class="k">return</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">deepExtendWith</span><span class="p">(</span><span class="nx">oldVal</span><span class="p">,</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span>
+                        <span class="k">return</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">deepExtendWith</span><span class="p">(</span><span class="nx">oldVal</span><span class="p">,</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">));</span>
 
 </pre></div>
         </td>
@@ -546,10 +547,13 @@ Returns undefined in case the operator was &#39;delete.&#39;</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
                     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">operator</span> <span class="o">==</span> <span class="nx">operators</span><span class="p">[</span><span class="s2">&quot;extend&quot;</span><span class="p">])</span> <span class="p">{</span>
-                        <span class="k">return</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">extendWith</span><span class="p">(</span><span class="nx">oldVal</span><span class="p">,</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span>
+                        <span class="k">return</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">extendWith</span><span class="p">(</span><span class="nx">oldVal</span><span class="p">,</span> <span class="nx">funcOrVal</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">));</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
             <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">oldVal</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">operator</span> <span class="o">==</span> <span class="nx">operators</span><span class="p">[</span><span class="s2">&quot;concat&quot;</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">oldVal</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
+                <span class="p">}</span>
                 <span class="k">if</span><span class="p">(</span><span class="nx">operator</span> <span class="o">==</span> <span class="nx">operators</span><span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">])</span> <span class="p">{</span>
                     <span class="nx">oldVal</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
                     <span class="k">return</span> <span class="nx">oldVal</span><span class="p">;</span>
@@ -821,7 +825,9 @@ if supplied.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">protoProps</span><span class="p">)</span> <span class="nx">_</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">protoProps</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">protoProps</span><span class="p">)</span> <span class="nx">Mutation</span><span class="p">.</span><span class="nx">deepExtendWith</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">protoProps</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Mutation</span><span class="p">.</span><span class="nx">getDeepExtendMutateSettings</span><span class="p">({</span>
+                <span class="nx">force</span><span class="o">:</span> <span class="kc">true</span>
+            <span class="p">})));</span>
 
 
 </pre></div>

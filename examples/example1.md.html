@@ -32,14 +32,15 @@
 <div class="left">
     In the example we see that we can easily override the properties of the instances by passing in an options object.
 </div>
-<iframe src="../resources/demos/demo1.html" class="demo-frame"></iframe>
+<iframe src="../resources/demos/demo1.html" class="demo-frame" style="height:300px"></iframe>
 
 <div class="clear"></div>
 
 <h2 id="code">Code</h2>
-<p>Let&#39;s take an example of where this might be useful. Suppose we have some instance where we are defining some default configuration.
+<p>Suppose we have some instance where we are defining some default configuration.
 However, we would like the user to be able to change the behaviour of the instance be passing in some options. Mutation allows us
 to setup a format for such configuration without explicitly needing to define such override behaviour.</p>
+<div class="spacer"></div>
 <div class="left">
 Define our class
 </div>
@@ -65,11 +66,13 @@ Define our class
 
 
 <div class="clear"></div>
-<div class="left"></div>
+<div class="left">
+Create our instances. One is instantiated with the default options,
+whereas the other is instantiated with some overrides.
+</div>
 
 
-<div class="highlight"><pre><code><span class="c1">// Create our instances</span>
-<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">();</span>
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">();</span>
 <span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">({</span>
     <span class="s1">&#39;delete.evil&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="s1">&#39;insertAt[0].hands&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
@@ -79,15 +82,6 @@ Define our class
          <span class="s1">&#39;chris&#39;</span><span class="o">:</span> <span class="p">{}</span>
      <span class="p">}</span>
 <span class="p">});</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;evil&#39;</span><span class="p">));</span> <span class="c1">// true</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;evil&#39;</span><span class="p">));</span> <span class="c1">// undefined</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;hands&#39;</span><span class="p">));</span> <span class="c1">// [&#39;left&#39;,&#39;right&#39;]</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;hands&#39;</span><span class="p">));</span> <span class="c1">// [&#39;center&#39;,&#39;left&#39;,&#39;right&#39;]</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">));</span> <span class="c1">// dave and taylor</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">));</span> <span class="c1">// dave, taylor, nate, pat and chris</span>
 </code></pre></div>
 
 

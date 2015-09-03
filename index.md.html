@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "index.md", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <link rel="stylesheet" href="docs-style.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="project-header">
+<div class="project-name">Mutation</div>
+<div class="intro">
+Allows for declarative mutation of JavaScript objects. Is extremely useful for mutating things like default values and configuration objects.
+Works by recursing over a target object and applying any mutation directives it finds in the source object.
+</div></div>
+
+<h2 id="source">Source</h2>
+<p>Read the annotated source <a href="mutation.js.html" target="_blank">here</a></p>
+<div class="clear"></div>
+<div class="spacer"></div>
+
+<h2 id="api">API</h2>
+<p>Here&#39;s a list of the available advice API methods:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>extendWith</td>
+<td>Mutates a target object using a source object. Keys with no mutation operators are simply replaced.</td>
+</tr>
+<tr>
+<td>deepExtendWith</td>
+<td>Mutates a target object using a source object. Keys with no mutation operators are recursively mutated.</td>
+</tr>
+<tr>
+<td>mutateWith</td>
+<td>Mutates a source object given a target object and some mutation settings</td>
+</tr>
+</tbody>
+</table>
+<p>The following is a list of all the valid mutation operators:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>extend</td>
+<td>Extends an object given another one</td>
+</tr>
+<tr>
+<td>deepExtend</td>
+<td>Extends an object given another to an infinite depth</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Deletes the given value</td>
+</tr>
+<tr>
+<td>push</td>
+<td>Pushes into an array</td>
+</tr>
+<tr>
+<td>concat</td>
+<td>Concats an array</td>
+</tr>
+<tr>
+<td>insertAt</td>
+<td>Inserts into an array at the given index</td>
+</tr>
+<tr>
+<td>callWith</td>
+<td>Calls a function with the given source value</td>
+</tr>
+<tr>
+<td>extendFunction</td>
+<td>Calls the source function after the target function and returns the return value of the target extended with the return value of the source function</td>
+</tr>
+<tr>
+<td>deepExtendFunction</td>
+<td>Same as extendFunction except deep extends the return value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<div class="left">
+    The simplest possible example might be a delete operation on a target object.
+</div>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;delete.b&#39;</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+<span class="nx">Mutation</span><span class="p">.</span><span class="nx">extendWith</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span><span class="p">);</span>
+<span class="c1">// console.log(foo.b) is undefined</span>
+</code></pre></div>
+
+
+<p>Let&#39;s take an example of where this might be useful. Suppose we have some instance where we are defining some default configuration.
+However, we would like the user to be able to change the behaviour of the instance be passing in some options. Mutation allows us
+to setup a format for such configuration without explicitly needing to define such override behaviour.</p>
+<p>Check out the example for this <a href="examples/example1.md.html">here</a></p>
+</div>
+  </div>
+</body>
+</html>
