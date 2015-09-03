@@ -1,6 +1,6 @@
 {
   "name": "mutation-js",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Easy object mutation",
   "main": "mutation.js",
   "keywords": [
