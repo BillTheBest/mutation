@@ -30,6 +30,7 @@ The following is a list of all the valid mutation operators:
 | deepExtend       |  Extends an object given another to an infinite depth |
 | delete   | Deletes the given value |
 | push   | Pushes into an array |
+| concat   | Concats an array |
 | insertAt   | Inserts into an array at the given index |
 | callWith   | Calls a function with the given source value |
 | extendFunction   | Calls the source function after the target function and returns the return value of the target extended with the return value of the source function |
