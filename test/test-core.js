@@ -28,7 +28,8 @@ define(['chai'], function(chai) {
             f: {
                 innerProp1: 1
             },
-            g: [1,2]
+            g: [1,2],
+            h: [1,2]
         };
         var source = {
             'delete.foo' : null,
@@ -54,7 +55,8 @@ define(['chai'], function(chai) {
                     innerProp2: 2
                 }
             },
-            'push.g': 3
+            'push.g': 3,
+            'concat.h': [3,4]
         };
         it('should delete key', function() {
             Mutation.mutateKey(target, source, 'a');
@@ -87,6 +89,10 @@ define(['chai'], function(chai) {
             Mutation.mutateKey(target, source, 'c');
             expect(target.c.innerProp1.mostInnerProp1).to.equal(3);
             expect(target.c.innerProp1.mostInnerProp2).to.equal(2);
+        });
+        it('should concat an array', function() {
+            Mutation.mutateKey(target, source, 'h');
+            assert.equal(true, _.isEqual(target.h, [1,2,3,4]));
         });
     });
 
@@ -443,6 +449,18 @@ define(['chai'], function(chai) {
                 expect(target.a[1]).to.equal(2);
                 expect(target.a[2]).to.equal(3);
                 expect(target.a.length).to.equal(3);
+            });
+        });
+        describe('concat.', function() {
+            var target = {
+                a: [1,2]
+            };
+            var source = {
+                'concat.a': [3,4]
+            };
+            Mutation.extendWith(target, source);
+            it('should concat an array', function() {
+                assert.equal(true, _.isEqual(target.a, [1,2,3,4]));
             });
         });
     });

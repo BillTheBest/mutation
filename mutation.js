@@ -44,6 +44,7 @@
         extendFunction: 'extendFunc.',
         deepExtendFunction: 'deepExtendFunc.',
         push: 'push.',
+        concat: 'concat.',
         insertAt: /insertAt(.*)\./i
     };
     // Get clean version of key without operator
@@ -189,6 +190,9 @@
                     }
                 }
             } else if(_.isArray(oldVal)) {
+                if(operator == operators["concat"]) {
+                    return oldVal.concat(newVal);
+                }
                 if(operator == operators["push"]) {
                     oldVal.push(newVal);
                     return oldVal;
